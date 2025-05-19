@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        PATH = "/opt/homebrew/bin:$PATH" // Make sure Jenkins can find npm and node
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -16,20 +18,19 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npm test || true' // Allows pipeline to continue despite test failures
+                sh 'npm test || true' // Continue even if tests fail
             }
         }
 
         stage('Generate Coverage Report') {
             steps {
-                // Ensure coverage report exists
                 sh 'npm run coverage || true'
             }
         }
 
         stage('NPM Audit (Security Scan)') {
             steps {
-                sh 'npm audit || true' // This will show known CVEs in the output
+                sh 'npm audit || true'
             }
         }
     }
