@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Run Security Tests') {
             steps {
-                sh 'snyk auth $SNYK_TOKEN'
+                sh "snyk auth $SNYK_TOKEN"
                 sh 'npm test'
             }
         }
