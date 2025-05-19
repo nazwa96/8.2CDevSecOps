@@ -1,7 +1,11 @@
 pipeline {
     agent any
     environment {
+<<<<<<< HEAD
         PATH = "/opt/homebrew/bin:$PATH" // Ensure snyk is in path
+=======
+        PATH = "/opt/homebrew/bin:$PATH"
+>>>>>>> 334ad94f9860e121a72153f2e4411e20218c12ab
         SNYK_TOKEN = credentials('SNYK_TOKEN')
     }
     stages {
@@ -18,4 +22,3 @@ pipeline {
         }
     }
 }
-
