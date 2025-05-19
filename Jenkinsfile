@@ -31,8 +31,24 @@ pipeline {
         stage('NPM Audit (Security Scan)') {
             steps {
                 sh 'npm audit || true'
+	   }
+        }
+
+        stage('SonarCloud Analysis') {
+            steps {
+
+
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                        npx sonar-scanner \
+                          -Dsonar.projectKey=nazwa96_8.2CDevSecOps \
+                          -Dsonar.organization=nazwa96 \
+                          -Dsonar.sources=. \
+                          -Dsonar.host.url=https://sonarcloud.io \
+                          -Dsonar.login=$SONAR_TOKEN
+                    """
+                }
             }
         }
     }
 }
-
